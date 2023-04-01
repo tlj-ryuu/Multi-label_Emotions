@@ -31,3 +31,33 @@ https://www.zhihu.com/question/308543084  写文章的时候可以提一提，�
 
 
 nlp中多分类的标签怎么设置，是不是转为one-hot
+
+
+
+
+朱老师，我汇报一下我现在的进度：
+我使用nltk的TreebankWordTokenizer（第一开始用的是casual_tokenize，官方说它在网络社交文本的分词比较好，正好goemotions是从reddit里
+采的文本，表情以及网络用语比较多，但是分下来发现，一些2-gram如don't都没被分成do和n't，所以暂时不用了）进行分词后， 
+把属于英文的转成了小写的形式，然后用word2vec转成了词向量（暂时没有自己预训练词向量，如果后期效果不好的话尝试），
+之后把[NAME]，[REGION]官方已经mask的token以及UNK进行了按[-0.25,0.25]范围随机初始化了。后面采用keras的LSTM来进行分类。
+下面就是打算，按照"positive","negative","ambiguous"为第一层，采用二元法训练出3个LSTM分类器，
+后面将ekman的情感划分"anger","disgust","fear","joy","sadness","surprise"训练出6个LSTM分类器，最后最细粒度的一层训练出28个LSTM分类器。总计训练出37个LSTM分类器。
+如一段文本包含"nervousness“和"excitement"，根据分类器先被同时分为"negative"和"positive"两个标签，
+再继续细分后同时被分为"fear"和"joy"，最后再被同时分为"nervousness“和"excitement"。
+
+用训练样本和开发集训练和验证过模型后，在测试集上得到多标签的F1和acc最后根据goemtions的那个文献给的F1指标作为baseline对比一下有没有提高。
+
+老师您看一下这过程中有没有问题？
+
+基本上没有问题，不过那篇文章的指标只是对单标签分别计算相关指标，和多标签分类用的指标不一样，还是得用我给的指标。而且那篇文章的baseline用的模型本身比lstm强很多，所以baseline你实现一个做28次二分类的lstm分类器(即只用单层)就行
+
+
+其实把整个过程结合起来也能画个体系图
+
+
+记得每个LSTM把网络结构训练结果保存起来
+
+
+根据书上，以及论文提到使用 Bi-LSTM 编码时，样本句子的长度大多都不相同，无法直接构建张量，为提
+升批训练的效率，同一 batch 的编码端会以该 batch 的最长句子长度进行填充（Padding）。
+进行了填充

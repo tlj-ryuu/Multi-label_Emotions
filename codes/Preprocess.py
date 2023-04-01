@@ -26,7 +26,7 @@ def tokenize_and_vectorize(dataset):
         tokens = TreebankWordTokenizer().tokenize(sample[0])
         # print(tokens)
 
-        ## process the [NAME]
+        ## process the [NAME]or[RELIGION]
         combined = []
         i = 0
         while i <= len(tokens)-1:
@@ -147,7 +147,7 @@ def collect_labels(dataset,name):
         # print('---------------end---------------------',i)
 
     ##write into the csv
-    path = 'D:\\计算机毕业设计\\' + name + '_labels.csv'
+    path = 'D:\\计算机毕业设计\\result_data\\' + name + '_labels.csv'
     tx = pd.DataFrame(labels)
     tx.to_csv(path, encoding='utf-8', mode='a', header=True, index=False, sep=',')
 
@@ -161,11 +161,25 @@ def pad_trunc(vectorized,maxlen):
     new = [sample[:maxlen] + [[0.]*embedding_dim]*(maxlen-len(sample)) for sample in vectorized]
     return new
 
+def read_label(filepath,index):
+    pass
 
 
 if __name__=='__main__':
-    test_path=r'D:\计算机毕业设计\GoEmotions\test.tsv'
+    train_path=r'D:\计算机毕业设计\GoEmotions\train.tsv'
+    train_data = read_tsv(train_path)
+
+    dev_path = r'D:\计算机毕业设计\GoEmotions\dev.tsv'
+    dev_data = read_tsv(dev_path)
+
+    test_path = r'D:\计算机毕业设计\GoEmotions\test.tsv'
     test_data = read_tsv(test_path)
+
+    train_labels = collect_labels(dataset=train_data,name='train')
+    dev_labels = collect_labels(dataset=dev_data,name='dev')
+    test_labels = collect_labels(dataset=test_data,name='test')
+
+
     # print(test_data)
     vectorized = tokenize_and_vectorize(test_data)
 

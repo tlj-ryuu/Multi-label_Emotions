@@ -29,7 +29,8 @@ def tokenize_and_vectorize(dataset):
         ## process the [NAME]or[RELIGION]
         combined = []
         i = 0
-        while i <= len(tokens)-1:
+        # print(tokens)
+        while i < len(tokens)-1:
             if tokens[i]=='[' and tokens[i+1]=='NAME':
                 combined.append('[NAME]')
                 i += 3
@@ -158,11 +159,18 @@ def pad_trunc(vectorized,maxlen):
     pad with zero or truncate to maxlen
     '''
     embedding_dim = 300
-    new = [sample[:maxlen] + [[0.]*embedding_dim]*(maxlen-len(sample)) for sample in vectorized]
+
+    new = [sample[:maxlen] + [np.array([0.] * embedding_dim)] * (maxlen - len(sample)) for sample in vectorized]
     return new
 
 def read_label(filepath,index):
-    pass
+    res = []
+    with open(filepath) as f:
+        for line in f.readlines():
+            tmp = line.strip().split(',')[index]
+            if tmp=='0' or tmp=='1':
+                res.append(int(tmp))
+    return res
 
 
 if __name__=='__main__':
@@ -175,15 +183,21 @@ if __name__=='__main__':
     test_path = r'D:\计算机毕业设计\GoEmotions\test.tsv'
     test_data = read_tsv(test_path)
 
-    train_labels = collect_labels(dataset=train_data,name='train')
-    dev_labels = collect_labels(dataset=dev_data,name='dev')
-    test_labels = collect_labels(dataset=test_data,name='test')
+    # train_labels = collect_labels(dataset=train_data,name='train')
+    # dev_labels = collect_labels(dataset=dev_data,name='dev')
+    # test_labels = collect_labels(dataset=test_data,name='test')
 
 
     # print(test_data)
-    vectorized = tokenize_and_vectorize(test_data)
+    vectorized = tokenize_and_vectorize(dev_data)
 
-    print(vectorized[-3])
+    # print(vectorized)
+    pad = pad_trunc(vectorized,42)
+    # print(pad[1])
+    # print(len(pad[1]))
+    # for i in range(len(pad[0])):
+    #     print(pad[0][i])
+    #     print('----------------------------------------------------------------------------')
 
     # print(len(vectorized[-3]))
 

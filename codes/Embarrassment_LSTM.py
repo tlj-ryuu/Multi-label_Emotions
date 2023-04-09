@@ -115,7 +115,7 @@ def testModel(path, test_set, test_label):
 if __name__ == '__main__':
     path = 'D:\\计算机毕业设计\\'
     train_set, train_label, dev_set, dev_label, test_set, test_label = preLoad(path, 21)
-    # mainModel(path,train_set, train_label, dev_set, dev_label)
+    mainModel(path,train_set, train_label, dev_set, dev_label)
     print('-----------------------------training over------------------------------------')
     testModel(path, test_set, test_label)
 

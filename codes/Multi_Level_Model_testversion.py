@@ -29,6 +29,40 @@ def prepare_test(path):
 
     return test_set,test_label
 
+
+def Cal_MAcc(pre_res,test_label):
+    '''
+    e.g.
+    pre_res = [['sad',anger'],['joy']]
+    test_label = [(1,),(3,4)]
+    '''
+    n = len(test_label)
+    MAcc = 0
+    for i in range(n):
+        y_p = set(emo2num(pre_res[i]))
+        y_t = set(test_label[i])
+        MAcc += (len(y_p & y_t) / len(y_p | y_t))
+    MAcc = MAcc / n
+    return MAcc
+
+
+def Cal_MF1(pre_res,test_label):
+    '''
+        e.g.
+        pre_res = [['sad',anger'],['joy']]
+        test_label = [(1,),(3,4)]
+    '''
+    n = len(test_label)
+    MF1 = 0
+    for i in range(n):
+        y_p = set(emo2num(pre_res[i]))
+        y_t = set(test_label[i])
+        MF1 += (len(y_p & y_t) / (len(y_p) + len(y_t)))
+    MF1 = 2 * MF1 / n
+    return MF1
+
+
+
 def Multi_Level_Model(path):
     maxlen = 42
     embedding_dim = 300
@@ -36,12 +70,11 @@ def Multi_Level_Model(path):
     test_set,test_label=prepare_test(path)
 
 
-
     test_set = test_set[:15]
     test_label = test_label[:15]
 
     pre_res = [[] for _ in range(len(test_set))]
-    neutral_cnt = 0
+
 
     for i in range(len(test_set)):
         neutral_cnt = 0
@@ -266,14 +299,10 @@ def Multi_Level_Model(path):
 
         print('------------------------------over-------------------------------------')
     print(pre_res)
-
-
-
-
-
-
-
-
+    MAcc = Cal_MAcc(pre_res,test_label)
+    MF1 = Cal_MF1(pre_res,test_label)
+    print('MAcc: ',MAcc)
+    print('MF1: ',MF1)
 
 
 

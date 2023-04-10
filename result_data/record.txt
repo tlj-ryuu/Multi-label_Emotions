@@ -1961,3 +1961,221 @@ Ambiguous_LSTM: predicted-probability:0.11472469568252563 predicted-label:0
 目前来看并不是第一层，第二层预测的不稳定，第一层第二层基本上预测的是正确的（除了i=12的例子 是第二层预测的概率是0.47导致没能进入后面第三层），都是最后一层本身预测的不太行，虽然都比同类里预测的概率大一些，所以对于没有标签预测出来的情况是否要
 取里面概率最大的标签有待商榷。
 所以要看看baseline的情况
+
+
+
+样本为十五的情况下的多层次
+Positive_LSTM: predicted-probability:0.8388744592666626 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.7798374891281128 predicted-label:1
+Joy_LSTM: predicted-probability:0.019652128219604492 predicted-label:0
+Amusement_LSTM: predicted-probability:0.007196515798568726 predicted-label:0
+WARNING:tensorflow:5 out of the last 5 calls to <function Model.make_predict_function.<locals>.predict_function at 0x00000280A73CEA60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Approval_LSTM: predicted-probability:0.011910587549209595 predicted-label:0
+WARNING:tensorflow:6 out of the last 6 calls to <function Model.make_predict_function.<locals>.predict_function at 0x00000280A735D040> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Excitement_LSTM: predicted-probability:0.001593559980392456 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.026866227388381958 predicted-label:0
+Love_LSTM: predicted-probability:0.8112813234329224 predicted-label:1
+Optimism_LSTM: predicted-probability:0.0006545484066009521 predicted-label:0
+Relief_LSTM: predicted-probability:0.0008662939071655273 predicted-label:0
+Pride_LSTM: predicted-probability:3.0509239877574146e-05 predicted-label:0
+Admiration_LSTM: predicted-probability:0.005891352891921997 predicted-label:0
+Desire_LSTM: predicted-probability:0.0033316314220428467 predicted-label:0
+Caring_LSTM: predicted-probability:0.006514787673950195 predicted-label:0
+Negative_LSTM: predicted-probability:0.449552059173584 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.0383685827255249 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 1
+Positive_LSTM: predicted-probability:0.9725741147994995 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.8371294140815735 predicted-label:1
+Joy_LSTM: predicted-probability:0.06444841623306274 predicted-label:0
+Amusement_LSTM: predicted-probability:0.020375549793243408 predicted-label:0
+Approval_LSTM: predicted-probability:0.05701449513435364 predicted-label:0
+Excitement_LSTM: predicted-probability:0.01699867844581604 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.01324319839477539 predicted-label:0
+Love_LSTM: predicted-probability:0.007748842239379883 predicted-label:0
+Optimism_LSTM: predicted-probability:0.005267024040222168 predicted-label:0
+Relief_LSTM: predicted-probability:0.0025022923946380615 predicted-label:0
+Pride_LSTM: predicted-probability:0.0004234611988067627 predicted-label:0
+Admiration_LSTM: predicted-probability:0.8406386375427246 predicted-label:1
+Desire_LSTM: predicted-probability:0.005847930908203125 predicted-label:0
+Caring_LSTM: predicted-probability:0.003241121768951416 predicted-label:0
+Negative_LSTM: predicted-probability:0.044206082820892334 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.04741400480270386 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 2
+Positive_LSTM: predicted-probability:0.8755757212638855 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.7842066287994385 predicted-label:1
+Joy_LSTM: predicted-probability:0.0688047707080841 predicted-label:0
+Amusement_LSTM: predicted-probability:0.015961140394210815 predicted-label:0
+Approval_LSTM: predicted-probability:0.070637047290802 predicted-label:0
+Excitement_LSTM: predicted-probability:0.09083053469657898 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.021232008934020996 predicted-label:0
+Love_LSTM: predicted-probability:0.01420450210571289 predicted-label:0
+Optimism_LSTM: predicted-probability:0.3688032031059265 predicted-label:0
+Relief_LSTM: predicted-probability:0.0002701878547668457 predicted-label:0
+Pride_LSTM: predicted-probability:0.000373154878616333 predicted-label:0
+Admiration_LSTM: predicted-probability:0.2878824770450592 predicted-label:0
+Desire_LSTM: predicted-probability:0.01410260796546936 predicted-label:0
+Caring_LSTM: predicted-probability:0.011667072772979736 predicted-label:0
+Negative_LSTM: predicted-probability:0.004352748394012451 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.0461273193359375 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 3
+Positive_LSTM: predicted-probability:0.8920780420303345 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.8875136375427246 predicted-label:1
+Joy_LSTM: predicted-probability:0.01651918888092041 predicted-label:0
+Amusement_LSTM: predicted-probability:0.014127403497695923 predicted-label:0
+Approval_LSTM: predicted-probability:0.029880613088607788 predicted-label:0
+Excitement_LSTM: predicted-probability:0.00804951786994934 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.9390994310379028 predicted-label:1
+Love_LSTM: predicted-probability:0.01015937328338623 predicted-label:0
+Optimism_LSTM: predicted-probability:0.002856642007827759 predicted-label:0
+Relief_LSTM: predicted-probability:0.0012225210666656494 predicted-label:0
+Pride_LSTM: predicted-probability:0.0013227760791778564 predicted-label:0
+Admiration_LSTM: predicted-probability:0.011782944202423096 predicted-label:0
+Desire_LSTM: predicted-probability:0.010352283716201782 predicted-label:0
+Caring_LSTM: predicted-probability:0.00795888900756836 predicted-label:0
+Negative_LSTM: predicted-probability:0.04235318303108215 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.13871684670448303 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 4
+Positive_LSTM: predicted-probability:0.12957763671875 predicted-label:0
+Negative_LSTM: predicted-probability:0.11696124076843262 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.05420777201652527 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 5
+Positive_LSTM: predicted-probability:0.9998982548713684 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.9987152814865112 predicted-label:1
+Joy_LSTM: predicted-probability:0.001398622989654541 predicted-label:0
+Amusement_LSTM: predicted-probability:0.0021631717681884766 predicted-label:0
+Approval_LSTM: predicted-probability:0.016366004943847656 predicted-label:0
+Excitement_LSTM: predicted-probability:0.00018459558486938477 predicted-label:0
+Gratitude_LSTM: predicted-probability:1.0 predicted-label:1
+Love_LSTM: predicted-probability:0.001664876937866211 predicted-label:0
+Optimism_LSTM: predicted-probability:0.004975944757461548 predicted-label:0
+Relief_LSTM: predicted-probability:0.00013709068298339844 predicted-label:0
+Pride_LSTM: predicted-probability:0.00011712263221852481 predicted-label:0
+Admiration_LSTM: predicted-probability:0.00482824444770813 predicted-label:0
+Desire_LSTM: predicted-probability:0.002277761697769165 predicted-label:0
+Caring_LSTM: predicted-probability:0.011970221996307373 predicted-label:0
+Negative_LSTM: predicted-probability:0.00044283270835876465 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.06654366850852966 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 6
+Positive_LSTM: predicted-probability:0.27457576990127563 predicted-label:0
+Negative_LSTM: predicted-probability:0.12301293015480042 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.08834877610206604 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 7
+Positive_LSTM: predicted-probability:0.9817367792129517 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.8863817453384399 predicted-label:1
+Joy_LSTM: predicted-probability:0.033595651388168335 predicted-label:0
+Amusement_LSTM: predicted-probability:0.018493860960006714 predicted-label:0
+Approval_LSTM: predicted-probability:0.04185664653778076 predicted-label:0
+Excitement_LSTM: predicted-probability:0.04836541414260864 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.5896838903427124 predicted-label:1
+Love_LSTM: predicted-probability:0.008798569440841675 predicted-label:0
+Optimism_LSTM: predicted-probability:0.0019050538539886475 predicted-label:0
+Relief_LSTM: predicted-probability:0.0015183091163635254 predicted-label:0
+Pride_LSTM: predicted-probability:0.0006361901760101318 predicted-label:0
+Admiration_LSTM: predicted-probability:0.45458340644836426 predicted-label:0
+Desire_LSTM: predicted-probability:0.003168821334838867 predicted-label:0
+Caring_LSTM: predicted-probability:0.03719767928123474 predicted-label:0
+Negative_LSTM: predicted-probability:0.012692093849182129 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.015392571687698364 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 8
+Positive_LSTM: predicted-probability:0.1750093698501587 predicted-label:0
+Negative_LSTM: predicted-probability:0.5336933135986328 predicted-label:1
+Sadness_ekman_LSTM: predicted-probability:0.8158875107765198 predicted-label:1
+Sadness_LSTM: predicted-probability:0.07992440462112427 predicted-label:0
+Disappointment_LSTM: predicted-probability:0.004516631364822388 predicted-label:0
+Embarrassment_LSTM: predicted-probability:0.004675954580307007 predicted-label:0
+Grief_LSTM: predicted-probability:0.0039141178131103516 predicted-label:0
+Remorse_LSTM: predicted-probability:0.06279963254928589 predicted-label:0
+Fear_ekman_LSTM: predicted-probability:0.006026327610015869 predicted-label:0
+Disgust_ekman_LSTM: predicted-probability:0.0018472671508789062 predicted-label:0
+Anger_ekman_LSTM: predicted-probability:0.012483030557632446 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.0329933762550354 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 9
+Positive_LSTM: predicted-probability:0.07689699530601501 predicted-label:0
+Negative_LSTM: predicted-probability:0.7965097427368164 predicted-label:1
+Sadness_ekman_LSTM: predicted-probability:0.5287523865699768 predicted-label:1
+Sadness_LSTM: predicted-probability:0.10630333423614502 predicted-label:0
+Disappointment_LSTM: predicted-probability:0.1045503318309784 predicted-label:0
+Embarrassment_LSTM: predicted-probability:0.005417615175247192 predicted-label:0
+Grief_LSTM: predicted-probability:3.105018913629465e-05 predicted-label:0
+Remorse_LSTM: predicted-probability:0.0008902251720428467 predicted-label:0
+Fear_ekman_LSTM: predicted-probability:0.010241061449050903 predicted-label:0
+Disgust_ekman_LSTM: predicted-probability:0.039648592472076416 predicted-label:0
+Anger_ekman_LSTM: predicted-probability:0.3091748356819153 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.01309734582901001 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 10
+Positive_LSTM: predicted-probability:0.1315189003944397 predicted-label:0
+Negative_LSTM: predicted-probability:0.12597236037254333 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.058175355195999146 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 11
+Positive_LSTM: predicted-probability:0.9957761764526367 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.9792388677597046 predicted-label:1
+Joy_LSTM: predicted-probability:0.030707180500030518 predicted-label:0
+Amusement_LSTM: predicted-probability:0.9031509757041931 predicted-label:1
+Approval_LSTM: predicted-probability:0.022126615047454834 predicted-label:0
+Excitement_LSTM: predicted-probability:0.005975782871246338 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.014096349477767944 predicted-label:0
+Love_LSTM: predicted-probability:0.9210062026977539 predicted-label:1
+Optimism_LSTM: predicted-probability:0.001736462116241455 predicted-label:0
+Relief_LSTM: predicted-probability:0.0005090236663818359 predicted-label:0
+Pride_LSTM: predicted-probability:0.00028756260871887207 predicted-label:0
+Admiration_LSTM: predicted-probability:0.03137752413749695 predicted-label:0
+Desire_LSTM: predicted-probability:0.008662283420562744 predicted-label:0
+Caring_LSTM: predicted-probability:0.0034118592739105225 predicted-label:0
+Negative_LSTM: predicted-probability:0.0021680593490600586 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.02020186185836792 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 12
+Positive_LSTM: predicted-probability:0.8998836278915405 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.6330648064613342 predicted-label:1
+Joy_LSTM: predicted-probability:0.04304003715515137 predicted-label:0
+Amusement_LSTM: predicted-probability:0.022639185190200806 predicted-label:0
+Approval_LSTM: predicted-probability:0.11987611651420593 predicted-label:0
+Excitement_LSTM: predicted-probability:0.029202550649642944 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.046561360359191895 predicted-label:0
+Love_LSTM: predicted-probability:0.00865986943244934 predicted-label:0
+Optimism_LSTM: predicted-probability:0.21166086196899414 predicted-label:0
+Relief_LSTM: predicted-probability:0.004574388265609741 predicted-label:0
+Pride_LSTM: predicted-probability:0.002042323350906372 predicted-label:0
+Admiration_LSTM: predicted-probability:0.032246530055999756 predicted-label:0
+Desire_LSTM: predicted-probability:0.6623828411102295 predicted-label:1
+Caring_LSTM: predicted-probability:0.012742191553115845 predicted-label:0
+Negative_LSTM: predicted-probability:0.09797036647796631 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.0528046190738678 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 13
+Positive_LSTM: predicted-probability:0.9490867853164673 predicted-label:1
+Joy_ekman_LSTM: predicted-probability:0.7611062526702881 predicted-label:1
+Joy_LSTM: predicted-probability:0.01388975977897644 predicted-label:0
+Amusement_LSTM: predicted-probability:0.013144165277481079 predicted-label:0
+Approval_LSTM: predicted-probability:0.15710467100143433 predicted-label:0
+Excitement_LSTM: predicted-probability:0.004884481430053711 predicted-label:0
+Gratitude_LSTM: predicted-probability:0.011224299669265747 predicted-label:0
+Love_LSTM: predicted-probability:0.006939679384231567 predicted-label:0
+Optimism_LSTM: predicted-probability:0.009118974208831787 predicted-label:0
+Relief_LSTM: predicted-probability:0.0004495978355407715 predicted-label:0
+Pride_LSTM: predicted-probability:0.001074373722076416 predicted-label:0
+Admiration_LSTM: predicted-probability:0.9645243883132935 predicted-label:1
+Desire_LSTM: predicted-probability:0.008916914463043213 predicted-label:0
+Caring_LSTM: predicted-probability:0.0848044753074646 predicted-label:0
+Negative_LSTM: predicted-probability:0.012673169374465942 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.040502309799194336 predicted-label:0
+------------------------------over-------------------------------------
+------------------------------i------------------------------------: 14
+Positive_LSTM: predicted-probability:0.4026920199394226 predicted-label:0
+Negative_LSTM: predicted-probability:0.03306588530540466 predicted-label:0
+Ambiguous_LSTM: predicted-probability:0.11472469568252563 predicted-label:0
+------------------------------over-------------------------------------
+[['love'], ['admiration'], [], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral']]
+MAcc:  0.5
+MF1:  0.5111111111111112

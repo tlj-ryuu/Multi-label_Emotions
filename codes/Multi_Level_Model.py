@@ -29,6 +29,40 @@ def prepare_test(path):
 
     return test_set,test_label
 
+
+def Cal_MAcc(pre_res,test_label):
+    '''
+    e.g.
+    pre_res = [['sad',anger'],['joy']]
+    test_label = [(1,),(3,4)]
+    '''
+    n = len(test_label)
+    MAcc = 0
+    for i in range(n):
+        y_p = set(emo2num(pre_res[i]))
+        y_t = set(test_label[i])
+        MAcc += (len(y_p & y_t) / len(y_p | y_t))
+    MAcc = MAcc / n
+    return MAcc
+
+
+def Cal_MF1(pre_res,test_label):
+    '''
+        e.g.
+        pre_res = [['sad',anger'],['joy']]
+        test_label = [(1,),(3,4)]
+    '''
+    n = len(test_label)
+    MF1 = 0
+    for i in range(n):
+        y_p = set(emo2num(pre_res[i]))
+        y_t = set(test_label[i])
+        MF1 += (len(y_p & y_t) / (len(y_p) + len(y_t)))
+    MF1 = 2 * MF1 / n
+    return MF1
+
+
+
 def Multi_Level_Model(path):
     maxlen = 42
     embedding_dim = 300
@@ -36,12 +70,12 @@ def Multi_Level_Model(path):
     test_set,test_label=prepare_test(path)
 
 
-
-    test_set = test_set[:15]
-    test_label = test_label[:15]
+    test_set = test_set[:2000]
+    test_label = test_label[:2000]
+    print("test size : ", len(test_label))
 
     pre_res = [[] for _ in range(len(test_set))]
-    neutral_cnt = 0
+
 
     for i in range(len(test_set)):
         neutral_cnt = 0
@@ -59,7 +93,7 @@ def Multi_Level_Model(path):
             # print(pre)
             f_label = (f_pro > 0.5).astype('int')
 
-            print('{}: predicted-probability:{} predicted-label:{}'.format(first_level, f_pro, f_label))
+            # print('{}: predicted-probability:{} predicted-label:{}'.format(first_level, f_pro, f_label))
 
 
             ## 加个清理内存的函数!!!!!!!!
@@ -90,7 +124,7 @@ def Multi_Level_Model(path):
                     K.clear_session()
                     tf.compat.v1.reset_default_graph()
                     # print(s_label)
-                    print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
+                    # print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
 
                     if s_label == 1:
@@ -114,7 +148,7 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
 
 
@@ -134,7 +168,7 @@ def Multi_Level_Model(path):
                     K.clear_session()
                     tf.compat.v1.reset_default_graph()
                     # print(s_label)
-                    print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
+                    # print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
                     if s_label == 1:
 
@@ -156,7 +190,7 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
             if first_level == 'Negative_LSTM' and f_label == 1:
 
@@ -174,7 +208,7 @@ def Multi_Level_Model(path):
                     K.clear_session()
                     tf.compat.v1.reset_default_graph()
                     # print(s_label)
-                    print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
+                    # print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
                     if s_label == 1 and second_level == 'Sadness_ekman_LSTM':
 
@@ -196,7 +230,7 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                     if s_label == 1 and second_level == 'Fear_ekman_LSTM':
 
@@ -218,7 +252,7 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                     if s_label == 1 and second_level == 'Disgust_ekman_LSTM':
 
@@ -240,7 +274,7 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                     if s_label == 1 and second_level == 'Anger_ekman_LSTM':
 
@@ -262,21 +296,18 @@ def Multi_Level_Model(path):
                             K.clear_session()
                             tf.compat.v1.reset_default_graph()
                             # print(t_label)
-                            print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
+                            # print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
         print('------------------------------over-------------------------------------')
     print(pre_res)
-
-
-
-
-
-
-
-
+    MAcc = Cal_MAcc(pre_res,test_label)
+    MF1 = Cal_MF1(pre_res,test_label)
+    print('MAcc: ',MAcc)
+    print('MF1: ',MF1)
 
 
 
 if __name__ == '__main__':
+    print("################################Multi_Level_Model###################################")
     path = 'D:\\计算机毕业设计\\'
     Multi_Level_Model(path)

@@ -70,8 +70,9 @@ def Multi_Level_Model(path):
     test_set,test_label=prepare_test(path)
 
 
-    test_set = test_set[:15]
-    test_label = test_label[:15]
+    test_set = test_set[:30]
+    test_label = test_label[:30]
+    print("test size : ", len(test_label))
 
     pre_res = [[] for _ in range(len(test_set))]
 
@@ -307,5 +308,6 @@ def Multi_Level_Model(path):
 
 
 if __name__ == '__main__':
+    print("################################Multi_Level_Model_testversion###################################")
     path = 'D:\\计算机毕业设计\\'
     Multi_Level_Model(path)

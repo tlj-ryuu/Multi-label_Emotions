@@ -2343,3 +2343,13 @@ print(emos[24])     ['neutral']         Watch Vegan Gains’ video on that, he h
 print(emos[26])     ['love']           This guy is a little turd but I love him so dearly. I'll pass on your kisses :)	0,18     admiration  love
 print(emos[39])     ['amusement']      in what universe? lol the mr. blue sky cover is one of the best on the album imo.	0,1    admiration amusement
 print(emos[51])     []                 Get back on your meds mate..You aren't funny at all...	3,10     annoyance   disapproval
+
+
+
+
+
+P = [0.6,0.08,0.42]
+[-0.584962500721156, 3.523561956057013, 0.46566357234881217]
+优化结果：0.11929893
+参数取值：[1, 0, 1]
+ 

@@ -2207,7 +2207,7 @@ MF1:  0.3663333333333334
 
 发现baseline比多层次慢的多，且确实多层次更准确
 
-但多层次的0.44等于没有预测需要改善
+但多层次的0.44等于没有预测需要改善，并不是，因为这是多标签预测已经比随机预测好多了
 
 
 
@@ -2353,3 +2353,25 @@ P = [0.6,0.08,0.42]
 优化结果：0.11929893
 参数取值：[1, 0, 1]
  
+ 
+ 
+调整了最后一层的判断阈值为0.6，0.7都试了一下，且对空标签进行的改进
+然后用了ILP
+
+
+30个测试啥也不做的标准
+[['love'], ['admiration'], [], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['amusement', 'love'], [], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], [], ['neutral']]
+MAcc:  0.43333333333333335
+MF1:  0.45555555555555555
+
+0.6 30个测试只对最后一层的空标签进行ILP
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.4666666666666667
+MF1:  0.4888888888888889
+
+0.7 30个样本测试 只对最后一层的空标签进行ILP
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['admiration'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love', 'admiration'], ['neutral'], ['approval'], []]
+MAcc:  0.45
+MF1:  0.4666666666666667
+
+

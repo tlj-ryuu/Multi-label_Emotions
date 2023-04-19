@@ -62,6 +62,21 @@ def Cal_MF1(pre_res,test_label):
     MF1 = 2 * MF1 / n
     return MF1
 
+## 加载模型
+def LoadModel(Mname,sample):
+    with open(path + 'result_data\\' + Mname + '.json', 'r') as j:
+        json_str = j.read()
+    model = model_from_json(json_str)
+    model.load_weights(path + 'result_data\\' + Mname + '_weights.h5')
+
+    pro = model.predict(sample)[0][0]
+
+    ## 加个清理内存的函数!!!!!!!!
+    K.clear_session()
+    tf.compat.v1.reset_default_graph()
+    return pro
+
+
 
 
 def Multi_Level_Model(path):
@@ -71,8 +86,8 @@ def Multi_Level_Model(path):
     test_set,test_label=prepare_test(path)
 
 
-    test_set = test_set[:100]
-    test_label = test_label[:100]
+    test_set = test_set[:30]
+    test_label = test_label[:30]
     print("test size : ", len(test_label))
 
     pre_res = [[] for _ in range(len(test_set))]
@@ -85,24 +100,14 @@ def Multi_Level_Model(path):
         sample = np.reshape(np.array([test_set[i]]), (1, maxlen, embedding_dim))
 
         for first_level in ['Positive_LSTM', 'Negative_LSTM', 'Ambiguous_LSTM']:
-            with open(path + 'result_data\\' + first_level + '.json', 'r') as j:
-                json_str = j.read()
-            model = model_from_json(json_str)
-            model.load_weights(path + 'result_data\\' + first_level + '_weights.h5')
 
-            f_pro = model.predict(sample)[0][0]
-            # print(pre)
+            f_pro = LoadModel(first_level,sample)
             f_label = (f_pro > 0.5).astype('int')
 
             print('{}: predicted-probability:{} predicted-label:{}'.format(first_level, f_pro, f_label))
 
 
-            ## 加个清理内存的函数!!!!!!!!
-            K.clear_session()
-            tf.compat.v1.reset_default_graph()
-
             if f_label == 0:
-
                 neutral_cnt+=1
 
 
@@ -112,33 +117,22 @@ def Multi_Level_Model(path):
 
             if first_level == 'Positive_LSTM'  and f_label == 1:
                 for second_level in ['Joy_ekman_LSTM']:
-                    with open(path + 'result_data\\' + second_level + '.json', 'r') as j:
-                        json_str = j.read()
-                    model = model_from_json(json_str)
-                    model.load_weights(path + 'result_data\\' + second_level + '_weights.h5')
 
-                    s_pro = model.predict(sample)[0][0]
-                    # print(pre)
+                    s_pro = LoadModel(second_level,sample)
+
                     s_label = (s_pro > 0.5).astype('int')
 
-                    ## 加个清理内存的函数!!!!!!!!
-                    K.clear_session()
-                    tf.compat.v1.reset_default_graph()
-                    # print(s_label)
                     print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
                     P3 = []
                     isEmptyFlag = True
                     if s_label == 1:
-                        joy_ekmans = ["Joy_LSTM", "Amusement_LSTM", "Approval_LSTM", "Excitement_LSTM", "Gratitude_LSTM", "Love_LSTM", "Optimism_LSTM", "Relief_LSTM", "Pride_LSTM",
-            "Admiration_LSTM", "Desire_LSTM", "Caring_LSTM"]
+                        joy_ekmans = ["Joy_LSTM", "Amusement_LSTM", "Approval_LSTM", "Excitement_LSTM",
+                                      "Gratitude_LSTM", "Love_LSTM", "Optimism_LSTM", "Relief_LSTM", "Pride_LSTM",
+                                      "Admiration_LSTM", "Desire_LSTM", "Caring_LSTM"]
                         for third_level in joy_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
                             # print(pre)
                             P3.append(t_pro)
                             t_label = (t_pro > t_cutoff).astype('int')
@@ -148,10 +142,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                         ## 对于空标签进行整数线性规划
@@ -167,19 +157,11 @@ def Multi_Level_Model(path):
             if first_level == 'Ambiguous_LSTM' and f_label == 1:
 
                 for second_level in ['Surprise_ekman_LSTM']:
-                    with open(path + 'result_data\\' + second_level + '.json', 'r') as j:
-                        json_str = j.read()
-                    model = model_from_json(json_str)
-                    model.load_weights(path + 'result_data\\' + second_level + '_weights.h5')
 
-                    s_pro = model.predict(sample)[0][0]
+                    s_pro = LoadModel(second_level,sample)
                     # print(pre)
                     s_label = (s_pro > 0.5).astype('int')
 
-                    ## 加个清理内存的函数!!!!!!!!
-                    K.clear_session()
-                    tf.compat.v1.reset_default_graph()
-                    # print(s_label)
                     print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
                     P3 = []
@@ -187,12 +169,9 @@ def Multi_Level_Model(path):
                     if s_label == 1:
                         surprise_ekmans = ["Surprise_LSTM", "Realization_LSTM", "Confusion_LSTM", "Curiosity_LSTM"]
                         for third_level in surprise_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
+                            P3.append(t_pro)
                             # print(pre)
                             t_label = (t_pro > t_cutoff).astype('int')
 
@@ -201,10 +180,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                         ## 对空标签进行整数线性规划
@@ -222,19 +197,11 @@ def Multi_Level_Model(path):
             if first_level == 'Negative_LSTM' and f_label == 1:
 
                 for second_level in ['Sadness_ekman_LSTM','Fear_ekman_LSTM','Disgust_ekman_LSTM','Anger_ekman_LSTM']:
-                    with open(path + 'result_data\\' + second_level + '.json', 'r') as j:
-                        json_str = j.read()
-                    model = model_from_json(json_str)
-                    model.load_weights(path + 'result_data\\' + second_level + '_weights.h5')
 
-                    s_pro = model.predict(sample)[0][0]
+                    s_pro = LoadModel(second_level,sample)
                     # print(pre)
                     s_label = (s_pro > 0.5).astype('int')
 
-                    ## 加个清理内存的函数!!!!!!!!
-                    K.clear_session()
-                    tf.compat.v1.reset_default_graph()
-                    # print(s_label)
                     print('{}: predicted-probability:{} predicted-label:{}'.format(second_level, s_pro, s_label))
 
                     P3 = []
@@ -242,12 +209,9 @@ def Multi_Level_Model(path):
                     if s_label == 1 and second_level == 'Sadness_ekman_LSTM':
                         sadness_ekmans = ["Sadness_LSTM", "Disappointment_LSTM", "Embarrassment_LSTM", "Grief_LSTM", "Remorse_LSTM"]
                         for third_level in sadness_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
+                            P3.append(t_pro)
                             # print(pre)
                             t_label = (t_pro > t_cutoff).astype('int')
 
@@ -256,10 +220,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                         ## 对空标签进行整数线性规划
@@ -275,12 +235,9 @@ def Multi_Level_Model(path):
                     if s_label == 1 and second_level == 'Fear_ekman_LSTM':
                         fear_ekmans = ["Fear_LSTM", "Nervousness_LSTM"]
                         for third_level in fear_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
+                            P3.append(t_pro)
                             # print(pre)
                             t_label = (t_pro > t_cutoff).astype('int')
 
@@ -289,10 +246,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                         ## 对空标签进行整数线性规划
@@ -308,12 +261,9 @@ def Multi_Level_Model(path):
                     if s_label == 1 and second_level == 'Disgust_ekman_LSTM':
                         disgust_ekmans = ["Disgust_LSTM"]
                         for third_level in disgust_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
+                            P3.append(t_pro)
                             # print(pre)
                             t_label = (t_pro > t_cutoff).astype('int')
 
@@ -322,10 +272,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
                         ## 对空标签进行整数线性规划
                         if isEmptyFlag:
@@ -340,12 +286,9 @@ def Multi_Level_Model(path):
                     if s_label == 1 and second_level == 'Anger_ekman_LSTM':
                         anger_ekmans = ["Anger_LSTM", "Annoyance_LSTM", "Disapproval_LSTM"]
                         for third_level in anger_ekmans:
-                            with open(path + 'result_data\\' + third_level + '.json', 'r') as j:
-                                json_str = j.read()
-                            model = model_from_json(json_str)
-                            model.load_weights(path + 'result_data\\' + third_level + '_weights.h5')
 
-                            t_pro = model.predict(sample)[0][0]
+                            t_pro = LoadModel(third_level,sample)
+                            P3.append(t_pro)
                             # print(pre)
                             t_label = (t_pro > t_cutoff).astype('int')
 
@@ -354,10 +297,6 @@ def Multi_Level_Model(path):
                                 emo = third_level.split('_LSTM')[0].lower()
                                 pre_res[i].append(emo)
 
-                            ## 加个清理内存的函数!!!!!!!!
-                            K.clear_session()
-                            tf.compat.v1.reset_default_graph()
-                            # print(t_label)
                             print('{}: predicted-probability:{} predicted-label:{}'.format(third_level, t_pro, t_label))
 
                         ## 对空标签进行整数线性规划

@@ -2363,8 +2363,12 @@ P = [0.6,0.08,0.42]
 [['love'], ['admiration'], [], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['amusement', 'love'], [], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], [], ['neutral']]
 MAcc:  0.43333333333333335
 MF1:  0.45555555555555555
+同样再次测试
+[['love'], ['admiration'], [], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['neutral'], [], ['neutral'], ['amusement', 'love'], [], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], [], ['curiosity']]
+MAcc:  0.45
+MF1:  0.47777777777777775
 
-0.6 30个测试只对最后一层的空标签进行ILP
+0.6（0.65） 30个测试只对最后一层的空标签进行ILP
 [['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
 MAcc:  0.4666666666666667
 MF1:  0.4888888888888889
@@ -2375,3 +2379,136 @@ MAcc:  0.45
 MF1:  0.4666666666666667
 
 
+
+
+
+
+0.65 100个测试只对最后一层的空标签进行ILP
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], [], ['neutral'], [], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['approval'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], [], ['gratitude'], ['neutral'], ['love'], ['love'], [], ['gratitude'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['caring'], ['love'], ['admiration'], ['neutral'], ['approval'], [], ['neutral'], [], ['gratitude'], [], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['gratitude'], ['love'], ['embarrassment'], ['neutral'], ['neutral'], ['surprise'], ['neutral'], ['fear'], [], ['neutral'], ['admiration']]
+MAcc:  0.49
+MF1:  0.5099999999999999
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['admiration'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['approval'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], [], ['gratitude'], ['neutral'], ['admiration'], ['love'], [], ['gratitude'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], [], ['love'], ['admiration'], ['fear'], [], [], ['neutral'], ['neutral'], ['gratitude'], [], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['gratitude'], ['love'], ['embarrassment'], ['neutral'], ['neutral'], ['surprise'], ['neutral'], ['fear'], ['joy'], ['neutral'], ['pride', 'caring']]
+MAcc:  0.4733333333333334
+MF1:  0.49499999999999994
+
+
+
+
+
+0.5 0.65 30个测试 最后一层
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['admiration'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], []]
+MAcc:  0.43333333333333335
+MF1:  0.45555555555555555
+
+0.6（0.65） 30个测试只对最后一层的空标签进行ILP
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], [], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.4666666666666667
+MF1:  0.4888888888888889
+
+
+因为分词后对于未知的词我每次用的是random来生成的向量所以预测结果会有浮动
+
+
+上面的ILP里有些漏了P3.append(t_pro)，所以暂时不准，当时就在Joy_ekman下加了一个
+修改后的
+
+0.65 30例子 最后一层
+会发现效果很明显
+What's your source for that? Just curious (and yes I know it sounds like a tired contrarian statement).	7	ed7xq99
+把第三十个句子的curiosity预测出来了
+
+[['love'], ['admiration'], ['admiration'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['remorse'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.5833333333333334
+MF1:  0.611111111111111
+
+[['love', 'sadness'], ['admiration'], ['admiration'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['admiration'], ['sadness'], [], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.48333333333333334
+MF1:  0.5111111111111111
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['admiration'], ['sadness'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.5333333333333333
+MF1:  0.5555555555555555
+
+[['love'], ['admiration'], ['admiration'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['sadness'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.5666666666666667
+MF1:  0.5888888888888888
+
+0.65 100例子，最后一层
+[['love'], ['admiration'], ['admiration'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['remorse'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['approval'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['remorse'], ['gratitude'], ['neutral'], ['admiration'], ['love'], [], ['gratitude'], ['remorse'], ['neutral'], ['neutral'], [], ['neutral'], ['neutral'], ['neutral'], [], ['amusement'], ['caring'], ['love'], ['admiration'], ['neutral'], [], ['anger'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['gratitude'], ['love'], ['embarrassment'], ['neutral'], ['neutral'], ['surprise'], ['neutral'], ['disappointment', 'fear'], [], ['admiration'], ['pride']]
+MAcc:  0.485
+MF1:  0.5099999999999999
+
+
+
+
+
+
+0.5 0.65 30个句子 双层
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['neutral'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['fear'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.55
+MF1:  0.5777777777777777
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['sadness'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.5666666666666667
+MF1:  0.5888888888888888
+
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5333333333333333
+MF1:  0.5555555555555555
+
+[['love', 'sadness'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['remorse'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.6166666666666667
+MF1:  0.6444444444444444
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['sadness'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['annoyance'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity']]
+MAcc:  0.55
+MF1:  0.5777777777777777
+
+
+
+
+
+
+0.65 0.65 双层
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['remorse'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5333333333333333
+MF1:  0.5555555555555555
+
+
+[['love', 'remorse'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5
+MF1:  0.5222222222222223
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['sadness'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5333333333333333
+MF1:  0.5555555555555555
+
+[['love'], ['admiration'], ['excitement'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['remorse'], ['sadness'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5833333333333334
+MF1:  0.611111111111111
+
+MAcc:  0.5333333333333333
+MF1:  0.5666666666666667
+
+
+0.6 0.65 双层
+MAcc:  0.5
+MF1:  0.5222222222222223
+
+[['love', 'sadness'], ['admiration'], ['optimism', 'admiration'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['remorse'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.5333333333333333
+MF1:  0.5666666666666665
+
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude', 'admiration'], ['sadness'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['neutral']]
+MAcc:  0.48333333333333334
+MF1:  0.5111111111111111
+
+
+
+
+0.5 0.65 300例
+[['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['sadness'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['desire'], ['neutral'], ['optimism'], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['approval'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['sadness'], ['gratitude'], ['neutral'], ['admiration'], ['love'], ['desire'], ['gratitude'], ['remorse'], ['neutral'], ['neutral'], ['desire'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['caring'], ['love', 'anger'], ['admiration'], ['fear'], ['approval'], ['love', 'anger'], ['neutral'], ['neutral'], ['gratitude'], ['curiosity'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['gratitude'], ['love'], ['embarrassment'], ['neutral'], ['neutral'], ['surprise'], ['neutral'], ['fear'], ['joy'], ['neutral'], ['pride'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['admiration'], ['neutral'], ['optimism'], ['admiration'], ['neutral'], ['excitement', 'surprise'], ['neutral'], ['love'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['neutral'], ['love'], ['curiosity'], ['neutral'], ['neutral'], ['optimism'], ['neutral'], ['fear', 'surprise'], ['disgust'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['approval'], ['neutral'], ['disgust'], ['joy'], ['curiosity'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude', 'love'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['neutral'], ['neutral'], ['remorse'], ['curiosity'], ['neutral'], ['approval'], ['neutral'], ['anger'], ['gratitude'], ['neutral'], ['neutral'], ['amusement'], ['desire', 'surprise'], ['neutral'], ['amusement'], ['fear'], ['neutral'], ['pride'], ['admiration'], ['sadness'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['neutral'], ['anger'], ['gratitude'], ['approval'], ['neutral'], ['admiration'], ['admiration'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['fear'], ['surprise'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['joy'], ['optimism'], ['neutral'], ['neutral'], ['admiration'], ['gratitude'], ['neutral'], ['neutral'], ['love'], ['admiration'], ['gratitude'], ['neutral'], ['annoyance'], ['neutral'], ['neutral'], ['neutral'], ['approval'], ['neutral'], ['anger'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['admiration'], ['sadness'], ['admiration'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude', 'admiration'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['neutral'], ['desire'], ['sadness'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['disapproval'], ['neutral'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['disappointment'], ['sadness'], ['amusement'], ['desire'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['sadness', 'fear'], ['neutral'], ['neutral'], ['disgust'], ['love'], ['neutral'], ['admiration'], ['neutral'], ['anger'], ['neutral'], ['neutral'], ['neutral'], ['curiosity'], ['neutral'], ['approval'], ['gratitude'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral']]
+MAcc:  0.4977777777777777
+MF1:  0.5155555555555555

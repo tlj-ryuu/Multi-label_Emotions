@@ -84,6 +84,7 @@ def Multi_Level_Model(path):
         print('------------------------------i------------------------------------:',i)
         ## change into a format that the model can predict
         sample = np.reshape(np.array([test_set[i]]), (1, maxlen, embedding_dim))
+        # print(sample)
 
         for first_level in ['Positive_LSTM', 'Negative_LSTM', 'Ambiguous_LSTM']:
             with open(path + 'result_data\\' + first_level + '.json', 'r') as j:

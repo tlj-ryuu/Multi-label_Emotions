@@ -1,10 +1,11 @@
 import numpy as np
 from Preprocess import *
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten, LSTM
+from keras.layers import Dense, Dropout, Flatten, Conv1D,GlobalMaxPooling1D,Activation
 from keras.models import model_from_json
 
 np.random.seed(99)
+
 
 def preLoad(path, index):
     data_path = path + 'GoEmotions\\'
@@ -66,11 +67,16 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
     maxlen = 42
     embedding_size = 300
     epochs = 2
+    filters = 250
+    kernel_size = 3
+    hidden_dims = 250  ## 普通前馈网络中的神经元数量
 
     model = Sequential()
-    model.add(LSTM(num_neurons, return_sequences=True, input_shape=(maxlen, embedding_size)))
+    model.add(Conv1D(filters,kernel_size,padding = 'valid',activation = 'relu',strides = 1, input_shape=(maxlen, embedding_size)))
+    model.add(GlobalMaxPooling1D())
+    model.add(Dense(hidden_dims))
     model.add(Dropout(0.2))
-    model.add(Flatten())
+    model.add(Activation('relu'))
     model.add(Dense(1, activation='sigmoid'))
     model.compile('rmsprop', 'binary_crossentropy', metrics=['accuracy'])
     model.summary()
@@ -79,19 +85,19 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
 
     ##save model
     model_structure = model.to_json()
-    with open(path + 'result_data\\Admiration_LSTM.json', 'w') as j:
+    with open(path + 'result_data\\Admiration_CNN.json', 'w') as j:
         j.write(model_structure)
 
-    model.save_weights(path + 'result_data\\Admiration_LSTM_weights.h5')
+    model.save_weights(path + 'result_data\\Admiration_CNN_weights.h5')
 
 
 def testModel(path, test_set, test_label):
     ##reload model
-    with open(path + 'result_data\\Admiration_LSTM.json', 'r') as j:
+    with open(path + 'result_data\\Admiration_CNN.json', 'r') as j:
         json_str = j.read()
     model = model_from_json(json_str)
 
-    model.load_weights(path + 'result_data\\Admiration_LSTM_weights.h5')
+    model.load_weights(path + 'result_data\\Admiration_CNN_weights.h5')
 
     pre = model.predict(test_set)
     pre_label = (pre > 0.5).astype('int')

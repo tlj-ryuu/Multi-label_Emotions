@@ -2512,3 +2512,80 @@ MF1:  0.5111111111111111
 [['love'], ['admiration'], ['optimism'], ['gratitude'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['sadness'], ['disappointment'], ['neutral'], ['amusement', 'love'], ['desire'], ['admiration'], ['neutral'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['remorse'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['approval'], ['curiosity'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['desire'], ['neutral'], ['optimism'], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['approval'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['sadness'], ['gratitude'], ['neutral'], ['admiration'], ['love'], ['desire'], ['gratitude'], ['remorse'], ['neutral'], ['neutral'], ['desire'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['caring'], ['love', 'anger'], ['admiration'], ['fear'], ['approval'], ['love', 'anger'], ['neutral'], ['neutral'], ['gratitude'], ['curiosity'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['gratitude'], ['love'], ['embarrassment'], ['neutral'], ['neutral'], ['surprise'], ['neutral'], ['fear'], ['joy'], ['neutral'], ['pride'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['admiration'], ['neutral'], ['optimism'], ['admiration'], ['neutral'], ['excitement', 'surprise'], ['neutral'], ['love'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['amusement'], ['neutral'], ['love'], ['curiosity'], ['neutral'], ['neutral'], ['optimism'], ['neutral'], ['fear', 'surprise'], ['disgust'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['approval'], ['neutral'], ['disgust'], ['joy'], ['curiosity'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude', 'love'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['neutral'], ['neutral'], ['remorse'], ['curiosity'], ['neutral'], ['approval'], ['neutral'], ['anger'], ['gratitude'], ['neutral'], ['neutral'], ['amusement'], ['desire', 'surprise'], ['neutral'], ['amusement'], ['fear'], ['neutral'], ['pride'], ['admiration'], ['sadness'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['neutral'], ['anger'], ['gratitude'], ['approval'], ['neutral'], ['admiration'], ['admiration'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['fear'], ['surprise'], ['neutral'], ['disgust'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['joy'], ['optimism'], ['neutral'], ['neutral'], ['admiration'], ['gratitude'], ['neutral'], ['neutral'], ['love'], ['admiration'], ['gratitude'], ['neutral'], ['annoyance'], ['neutral'], ['neutral'], ['neutral'], ['approval'], ['neutral'], ['anger'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['admiration'], ['admiration'], ['sadness'], ['admiration'], ['neutral'], ['approval'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['love'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['gratitude', 'admiration'], ['neutral'], ['neutral'], ['admiration'], ['neutral'], ['neutral'], ['neutral'], ['desire'], ['sadness'], ['neutral'], ['neutral'], ['joy'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['disapproval'], ['neutral'], ['neutral'], ['neutral'], ['gratitude'], ['neutral'], ['gratitude'], ['disappointment'], ['sadness'], ['amusement'], ['desire'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['sadness', 'fear'], ['neutral'], ['neutral'], ['disgust'], ['love'], ['neutral'], ['admiration'], ['neutral'], ['anger'], ['neutral'], ['neutral'], ['neutral'], ['curiosity'], ['neutral'], ['approval'], ['gratitude'], ['neutral'], ['neutral'], ['neutral'], ['neutral'], ['neutral']]
 MAcc:  0.4977777777777777
 MF1:  0.5155555555555555
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10.Admiration_CNN
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv1d (Conv1D)              (None, 40, 250)           225250    
+_________________________________________________________________
+global_max_pooling1d (Global (None, 250)               0         
+_________________________________________________________________
+dense (Dense)                (None, 250)               62750     
+_________________________________________________________________
+dropout (Dropout)            (None, 250)               0         
+_________________________________________________________________
+activation (Activation)      (None, 250)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 251       
+=================================================================
+Total params: 288,251
+Trainable params: 288,251
+Non-trainable params: 0
+_________________________________________________________________
+2023-04-19 23:41:21.847908: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/2
+1357/1357 [==============================] - 88s 19ms/step - loss: 0.2416 - accuracy: 0.9164 - val_loss: 0.1709 - val_accuracy: 0.9377
+Epoch 2/2
+1357/1357 [==============================] - 23s 17ms/step - loss: 0.1584 - accuracy: 0.9405 - val_loss: 0.1837 - val_accuracy: 0.9397
+-----------------------------training over------------------------------------
+real_label:
+[0 1 0 ... 0 1 0]
+pre_prob:
+[[1.3034903e-05]
+ [4.1742629e-01]
+ [2.6982707e-01]
+ ...
+ [8.8267326e-03]
+ [7.1569365e-01]
+ [2.7069449e-04]]
+pre_label:
+[[0]
+ [0]
+ [0]
+ ...
+ [0]
+ [1]
+ [0]]
+Accuracy: 0.92906

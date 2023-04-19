@@ -7,6 +7,7 @@ from keras.models import Sequential,Model
 from keras.layers import Dense, Dropout, Flatten, LSTM,Multiply,Layer
 from keras.models import model_from_json
 
+np.random.seed(99)
 
 
 # 自定义注意力层
@@ -140,7 +141,7 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
     maxlen = 42
     embedding_size = 300
     epochs = 2
-    num_labels = 2
+
 
     inputs = Input(name='inputs', shape=(maxlen, embedding_size), dtype='float64')
 

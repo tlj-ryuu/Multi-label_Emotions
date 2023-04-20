@@ -4,8 +4,8 @@
 import numpy as np
 from Preprocess import *
 from keras.models import Sequential,Model
-from keras.layers import Dense, Dropout, Flatten, LSTM,Multiply,Layer,Bidirectional
-from keras.models import load_model
+from keras.layers import Dense, Dropout, Flatten, LSTM,Multiply,Layer
+from keras.models import model_from_json
 
 np.random.seed(99)
 
@@ -19,7 +19,10 @@ from keras.layers import Input
 class Attention(Layer):
     # 返回值：返回的不是attention权重，而是每个timestep乘以权重后相加得到的向量。
     # 输入:输入是rnn的timesteps，也是最长输入序列的长度
-    def __init__(self, step_dim,W_regularizer=None, b_regularizer=None,W_constraint=None, b_constraint=None,bias=True, **kwargs):
+    def __init__(self, step_dim,
+                 W_regularizer=None, b_regularizer=None,
+                 W_constraint=None, b_constraint=None,
+                 bias=True, **kwargs):
         self.supports_masking = True
         self.init = initializers.get('glorot_uniform')
 
@@ -76,20 +79,6 @@ class Attention(Layer):
 
     def compute_output_shape(self, input_shape):  ## 返回的结果是c，其shape为 (batch_size, units)
         return input_shape[0], self.features_dim
-
-    def get_config(self):  # 在有自定义网络层时，需要保存模型时，重写get_config函数
-        config = super(Attention, self).get_config()
-        config['step_dim'] = self.step_dim
-        config['W_regularizer'] = self.W_regularizer
-        config['b_regularizer'] = self.b_regularizer
-        config['W_constraint'] = self.W_constraint
-        config['b_constraint'] = self.b_constraint
-        config['bias'] = self.bias
-
-
-        return config
-
-
 
 
 def preLoad(path, index):
@@ -151,39 +140,38 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
     batch_size = 32
     maxlen = 42
     embedding_size = 300
-    epochs = 2
+    epochs = 3
 
 
     inputs = Input(name='inputs', shape=(maxlen, embedding_size), dtype='float64')
-    bilstm = Bidirectional(LSTM(num_neurons, return_sequences=True))(inputs)  # 参数保持维度3
-    # bilstm = Bidirectional(LSTM(num_neurons, return_sequences=True))(bilstm)
-    # layer = Dense(256, activation='relu')(bilstm)
-    layer = Dense(50, activation='relu')(bilstm)
-    layer = Dropout(0.2)(layer)
-    ## 注意力机制
-    attention = Attention(step_dim=maxlen)(layer)
-    # layer = Dense(128, activation='relu')(attention)
-    layer = Dense(50, activation='relu')(attention)
-    # fla = Flatten()(attention)
-    output = Dense(1, activation='sigmoid')(layer)
-    model = Model(inputs=inputs, outputs=output)
 
+    attention_probs = Dense(embedding_size, activation='softmax', name='attention_vec')(inputs)
+    attention_mul = Multiply()([inputs, attention_probs])
+    mlp = Dense(num_neurons)(attention_mul)  # 原始的全连接
+    fla = Flatten()(mlp)
+    output = Dense(1, activation='sigmoid')(fla)
+    model = Model(inputs=[inputs], outputs=output)
 
     model.compile('rmsprop', 'binary_crossentropy', metrics=['accuracy'])
     model.summary()
 
     model.fit(train_set, train_label, batch_size=batch_size, epochs=epochs, validation_data=(dev_set, dev_label))
 
-    ##save model
-    model.save(path + 'result_data\\Admiration_BiLSTM+Attention.h5')
+    # ##save model
+    model_structure = model.to_json()
+    with open(path + 'result_data\\Admiration_Attention.json', 'w') as j:
+        j.write(model_structure)
 
+    model.save_weights(path + 'result_data\\Admiration_Attention_weights.h5')
 
 
 def testModel(path, test_set, test_label):
     ##reload model
-    model = load_model(path + 'result_data\\Admiration_BiLSTM+Attention.h5'
-                       , custom_objects={'Attention': Attention})
+    with open(path + 'result_data\\Admiration_Attention.json', 'r') as j:
+        json_str = j.read()
+    model = model_from_json(json_str)
 
+    model.load_weights(path + 'result_data\\Admiration_Attention_weights.h5')
 
     pre = model.predict(test_set)
     pre_label = (pre > 0.5).astype('int')

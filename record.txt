@@ -2694,3 +2694,115 @@ pre_label:
  [0]
  [0]]
 Accuracy: 0.93072
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Model: "model"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+inputs (InputLayer)          [(None, 42, 300)]         0         
+_________________________________________________________________
+bidirectional (Bidirectional (None, 42, 100)           140400    
+_________________________________________________________________
+bidirectional_1 (Bidirection (None, 42, 100)           60400     
+_________________________________________________________________
+dense (Dense)                (None, 42, 256)           25856     
+_________________________________________________________________
+dropout (Dropout)            (None, 42, 256)           0         
+_________________________________________________________________
+attention (Attention)        (None, 256)               298       
+_________________________________________________________________
+dense_1 (Dense)              (None, 128)               32896     
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 129       
+=================================================================
+Total params: 259,979
+Trainable params: 259,979
+Non-trainable params: 0
+_________________________________________________________________
+2023-04-20 16:53:13.560857: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/2
+1357/1357 [==============================] - 158s 78ms/step - loss: 0.2505 - accuracy: 0.9136 - val_loss: 0.1824 - val_accuracy: 0.9392
+Epoch 2/2
+1357/1357 [==============================] - 114s 84ms/step - loss: 0.2008 - accuracy: 0.9289 - val_loss: 0.1656 - val_accuracy: 0.9407
+E:\Python39\lib\site-packages\keras\utils\generic_utils.py:494: CustomMaskWarning: Custom mask layers require a config and must override get_config. When loading, the custom mask layer must be passed to the custom_objects argument.
+  warnings.warn('Custom mask layers require a config and must override '
+Traceback (most recent call last):
+  File "E:\Python39\lib\site-packages\IPython\core\interactiveshell.py", line 3441, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File "<ipython-input-2-3cb8f4786833>", line 1, in <module>
+    runfile('D:/计算机毕业设计/codes/BiLSTM+Attention/classifiers/Admiration_BiLSTM+Attention.py', wdir='D:/计算机毕业设计/codes/BiLSTM+Attention/classifiers')
+  File "F:\PyCharm Community Edition 2021.1\plugins\python-ce\helpers\pydev\_pydev_bundle\pydev_umd.py", line 197, in runfile
+    pydev_imports.execfile(filename, global_vars, local_vars)  # execute the script
+  File "F:\PyCharm Community Edition 2021.1\plugins\python-ce\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+  File "D:/计算机毕业设计/codes/BiLSTM+Attention/classifiers/Admiration_BiLSTM+Attention.py", line 202, in <module>
+    mainModel(path,train_set, train_label, dev_set, dev_label)
+  File "D:/计算机毕业设计/codes/BiLSTM+Attention/classifiers/Admiration_BiLSTM+Attention.py", line 164, in mainModel
+    model_structure = model.to_json()
+  File "E:\Python39\lib\site-packages\keras\engine\training.py", line 2353, in to_json
+    model_config = self._updated_config()
+  File "E:\Python39\lib\site-packages\keras\engine\training.py", line 2311, in _updated_config
+    config = self.get_config()
+  File "E:\Python39\lib\site-packages\keras\engine\functional.py", line 644, in get_config
+    return copy.deepcopy(get_network_config(self))
+  File "E:\Python39\lib\site-packages\keras\engine\functional.py", line 1350, in get_network_config
+    layer_config = serialize_layer_fn(layer)
+  File "E:\Python39\lib\site-packages\keras\utils\generic_utils.py", line 508, in serialize_keras_object
+    raise e
+  File "E:\Python39\lib\site-packages\keras\utils\generic_utils.py", line 503, in serialize_keras_object
+    config = instance.get_config()
+  File "E:\Python39\lib\site-packages\keras\engine\base_layer.py", line 695, in get_config
+    raise NotImplementedError('Layer %s has arguments in `__init__` and '
+NotImplementedError: Layer Attention has arguments in `__init__` and therefore must override `get_config`.
+
+
+就用一层LSTM+attention
+Model: "model"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+inputs (InputLayer)          [(None, 42, 300)]         0         
+_________________________________________________________________
+bidirectional (Bidirectional (None, 42, 100)           140400    
+_________________________________________________________________
+dense (Dense)                (None, 42, 256)           25856     
+_________________________________________________________________
+dropout (Dropout)            (None, 42, 256)           0         
+_________________________________________________________________
+attention (Attention)        (None, 256)               298       
+_________________________________________________________________
+dense_1 (Dense)              (None, 128)               32896     
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 129       
+=================================================================
+Total params: 199,579
+Trainable params: 199,579
+Non-trainable params: 0
+_________________________________________________________________
+2023-04-20 17:25:00.652650: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/2
+1357/1357 [==============================] - 172s 96ms/step - loss: 0.2515 - accuracy: 0.9178 - val_loss: 0.1815 - val_accuracy: 0.9368
+Epoch 2/2
+1357/1357 [==============================] - 95s 70ms/step - loss: 0.1889 - accuracy: 0.9331 - val_loss: 0.1734 - val_accuracy: 0.9381
+-----------------------------training over------------------------------------

@@ -89,20 +89,20 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
     model.fit(train_set, train_label, batch_size=batch_size, epochs=epochs, validation_data=(dev_set, dev_label))
 
     ##save model
-    # model_structure = model.to_json()
-    # with open(path + 'result_data\\Admiration_BiLSTM.json', 'w') as j:
-    #     j.write(model_structure)
-    #
-    # model.save_weights(path + 'result_data\\Admiration_BiLSTM_weights.h5')
+    model_structure = model.to_json()
+    with open(path + 'result_data\\Ambiguous_BiLSTM.json', 'w') as j:
+        j.write(model_structure)
+
+    model.save_weights(path + 'result_data\\Ambiguous_BiLSTM_weights.h5')
 
 
 def testModel(path, test_set, test_label):
     ##reload model
-    with open(path + 'result_data\\Admiration_BiLSTM.json', 'r') as j:
+    with open(path + 'result_data\\Ambiguous_BiLSTM.json', 'r') as j:
         json_str = j.read()
     model = model_from_json(json_str)
 
-    model.load_weights(path + 'result_data\\Admiration_BiLSTM_weights.h5')
+    model.load_weights(path + 'result_data\\Ambiguous_BiLSTM_weights.h5')
 
     pre = model.predict(test_set)
     pre_label = (pre > 0.5).astype('int')
@@ -125,8 +125,8 @@ def testModel(path, test_set, test_label):
 
 
 if __name__ == '__main__':
-    path = 'D:\\计算机毕业设计\\'
-    train_set, train_label, dev_set, dev_label, test_set, test_label = preLoad(path, 9)
+    path = '/\\'
+    train_set, train_label, dev_set, dev_label, test_set, test_label = preLoad(path, 2)
     mainModel(path,train_set, train_label, dev_set, dev_label)
     print('-----------------------------training over------------------------------------')
-    # testModel(path, test_set, test_label)
+    testModel(path, test_set, test_label)

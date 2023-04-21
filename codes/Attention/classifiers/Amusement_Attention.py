@@ -159,19 +159,19 @@ def mainModel(path, train_set, train_label, dev_set, dev_label):
 
     ##save model
     model_structure = model.to_json()
-    with open(path + 'result_data\\Admiration_Attention.json', 'w') as j:
+    with open(path + 'result_data\\Amusement_Attention.json', 'w') as j:
         j.write(model_structure)
 
-    model.save_weights(path + 'result_data\\Admiration_Attention_weights.h5')
+    model.save_weights(path + 'result_data\\Amusement_Attention_weights.h5')
 
 
 def testModel(path, test_set, test_label):
     ##reload model
-    with open(path + 'result_data\\Admiration_Attention.json', 'r') as j:
+    with open(path + 'result_data\\Amusement_Attention.json', 'r') as j:
         json_str = j.read()
     model = model_from_json(json_str)
 
-    model.load_weights(path + 'result_data\\Admiration_Attention_weights.h5')
+    model.load_weights(path + 'result_data\\Amusement_Attention_weights.h5')
 
     pre = model.predict(test_set)
     pre_label = (pre > 0.5).astype('int')
@@ -195,7 +195,7 @@ def testModel(path, test_set, test_label):
 
 if __name__ == '__main__':
     path = 'D:\\计算机毕业设计\\'
-    train_set, train_label, dev_set, dev_label, test_set, test_label = preLoad(path, 9)
+    train_set, train_label, dev_set, dev_label, test_set, test_label = preLoad(path, 10)
     mainModel(path,train_set, train_label, dev_set, dev_label)
     print('-----------------------------training over------------------------------------')
     testModel(path, test_set, test_label)

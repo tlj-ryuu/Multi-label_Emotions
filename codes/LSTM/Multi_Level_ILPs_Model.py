@@ -519,6 +519,6 @@ def Multi_Level_Model(path):
 
 
 if __name__ == '__main__':
-    print("################################Multi_Level_Model_testversion###################################")
+    print("################################Multi_Level_Model_ILPs###################################")
     path = 'D:\\计算机毕业设计\\'
     Multi_Level_Model(path)

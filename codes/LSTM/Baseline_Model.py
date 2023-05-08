@@ -118,5 +118,5 @@ def Multi_Level_Model(path):
 
 if __name__ == '__main__':
     print("################################Baseline_Model###################################")
-    path = 'D:\\计算机毕业设计\\'
+    path = '/\\'
     Multi_Level_Model(path)

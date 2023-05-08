@@ -177,11 +177,36 @@ if __name__=='__main__':
     train_path=r'D:\计算机毕业设计\GoEmotions\train.tsv'
     train_data = read_tsv(train_path)
 
+    cnt = 0
+    all = 0
+    for tmp in train_data:
+        all += 1
+        if (len(tmp[1])>1):
+            cnt += 1
+    print('所有数为{}，多标签数为{}'.format(all,cnt))
+
     dev_path = r'D:\计算机毕业设计\GoEmotions\dev.tsv'
     dev_data = read_tsv(dev_path)
 
+    cnt = 0
+    all = 0
+    for tmp in dev_data:
+        all += 1
+        if (len(tmp[1]) > 1):
+            cnt += 1
+    print('所有数为{}，多标签数为{}'.format(all, cnt))
+
     test_path = r'D:\计算机毕业设计\GoEmotions\test.tsv'
     test_data = read_tsv(test_path)
+
+    cnt = 0
+    all = 0
+    for tmp in test_data:
+        all += 1
+        if (len(tmp[1]) > 1):
+            print(tmp[1])
+            cnt += 1
+    print('所有数为{}，多标签数为{}'.format(all, cnt))
 
     # train_labels = collect_labels(dataset=train_data,name='train')
     # dev_labels = collect_labels(dataset=dev_data,name='dev')
@@ -189,10 +214,10 @@ if __name__=='__main__':
 
 
     # print(test_data)
-    vectorized = tokenize_and_vectorize(dev_data)
-
-    # print(vectorized)
-    pad = pad_trunc(vectorized,42)
+    # vectorized = tokenize_and_vectorize(dev_data)
+    #
+    # # print(vectorized)
+    # pad = pad_trunc(vectorized,42)
     # print(pad[1])
     # print(len(pad[1]))
     # for i in range(len(pad[0])):

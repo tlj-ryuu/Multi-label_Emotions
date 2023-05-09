@@ -1,0 +1,15 @@
+train.tsv：训练集
+test.tsv：测试集
+dev.tsv：开发集
+
+emotion.txt：28类分类体系中每一类情绪的名称
+ekman_mapping.json：6类分类体系中每一类情绪的名称，以及每一类情绪所包含的28类体系中的情绪
+sentiment_mapping.json：3类分类体系中每一类情绪的名称，以及每一类情绪所包含的28类体系中的情绪
+
+文件格式：
+以
+Is this in New Orleans?? I really feel like this is New Orleans.	27	edgurhb
+为例，每行可以分为三个部分，中间是以tab（\t）为间隔：
+第一部分：Is this in New Orleans?? I really feel like this is New Orleans.    为文本本身
+第二部分：27    为类别序号（共28类，序号从0~27）
+第三部分是这段文本的来源，不需要考虑，只是一个美国论坛的地址

@@ -118,5 +118,5 @@ def Multi_Level_Model(path):
 
 if __name__ == '__main__':
     print("################################Baseline_Model###################################")
-    path = 'C:\\Users\\Lab\\Desktop\\Multi-label_Emotions\\'
+    path = 'D:\\计算机毕业设计\\Multi-label_Emotions\\'
     Multi_Level_Model(path)

@@ -4,7 +4,7 @@ import random
 from nltk.tokenize import TreebankWordTokenizer
 from nltk.tokenize.casual import casual_tokenize
 from gensim.models.keyedvectors import KeyedVectors
-word_vectors = KeyedVectors.load_word2vec_format(r'D:\Downloads\GoogleNews-vectors-negative300.bin.gz',binary=True,limit=200000)
+word_vectors = KeyedVectors.load_word2vec_format(r'F:\GoogleNews-vectors-negative300.bin.gz',binary=True,limit=200000)
 
 def read_tsv(filepath):
     dataset = []

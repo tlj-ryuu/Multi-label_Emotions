@@ -1,7 +1,7 @@
 # Multi-label_Emotions
 ### Multi-label emotion classification for complex classification systems on GoEmotions
 
-💻 **The final project including complete code is in the 'Multi-label_Emotions' folder** :books:
+💻 **The final project including complete code is in the [Multi-label_Emotions](Multi-label_Emotions/codes) folder** :books:
 ___
 
 *Abstract:* 
